@@ -116,7 +116,7 @@ namespace la_mia_pizzeria.Controllers
 		// POST: PizzaController/Delete/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection)
+		public ActionResult Delete(int id)
 		{
             PizzeriaContext db = new PizzeriaContext();
             Pizza pizza = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();

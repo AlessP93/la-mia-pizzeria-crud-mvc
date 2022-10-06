@@ -30,7 +30,11 @@
                             <li class="py-2"><b>@pizza.Nome:</b> @pizza.Description -  <img width=20%  src="@pizza.Pic"> - @pizza.Price € 
                             <a href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a> </li>
                             <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a>
-                            <a href="@Url.Action("Delete","Pizza", new{ id = pizza.Id})"> Cancella</a>
+
+                            <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <a href="@Url.Action("Delete","Pizza", new{ id = pizza.Id})"> Cancella</a>
+                            </form>
                         }
                     </ul>
                 </div>
