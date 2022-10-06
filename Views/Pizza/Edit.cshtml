@@ -1,0 +1,45 @@
+﻿@model Pizza
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+    <main class="container">
+        <div class="row text-center">
+            <h1>Crea una nuova pizza</h1>
+            <div class="m-auto">
+
+                <form asp-controller="Pizza" asp-action="Edit" asp-route-Id="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+                <div>
+                    <h4>Titolo</h4>
+                    <input asp-for="Nome" class="d-blocalert-dark w-50" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div>
+                    <h4>Descrizione</h4>
+                    <textarea asp-for="Description" class="d-blocalert-dark w-50"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div>
+                    <h4>Immagine</h4>
+                    <input asp-for="Pic" class="d-blocalert-dark w-50" />
+                    <span asp-validation-for="Pic" class="text-danger"></span>
+                </div>
+                <div>
+                    <h4>Prezzo</h4>
+                    <input asp-for="Price" class="d-blocalert-dark w-50" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                    <div class="py-5">
+                    <input type="submit" class="btn btn-small btn-success" value="Salva"/>
+                </div>
+            </form>
+                <a href="@Url.Action("Index", "pizza")">Torna alla pagina iniziale</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>

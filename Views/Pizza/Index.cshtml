@@ -2,7 +2,7 @@
     Layout = null;
 }
 
-@model MenuPizze
+@model List<Pizza>
 
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -20,23 +20,17 @@
             <h1 class="display-4">Welcome to Pizza Hut</h1>
             <div class="row">
                 <div class="col-6 text-start list-unstyled py-5">
-                    <h3>Pizze rosse:</h3>
+                    <h3>Lista Pizze:</h3>
                     <ul>
                         @{
                             int count = 0;
                         }
-                        @foreach (var pizza in Model.Rosse)
+                        @foreach (var pizza in Model)
                         {
-                            <li class="py-2"><b>@pizza.Nome:</b> @pizza.Description -  <img width=20% src="@pizza.Pic"> - @pizza.Price € <a href="@Url.Action("Details", "pizza", new{ id= count++})">Visualizza</a> </li>
-                        }
-                    </ul>
-                </div>
-                <div class="col-6 text-start list-unstyled py-5">
-                    <h3>Pizze bianche:</h3>
-                    <ul>
-                        @foreach (var pizza in Model.Bianche)
-                        {
-                            <li class="py-2"><b>@pizza.Nome:</b> @pizza.Description - <img width=20% src="@pizza.Pic"> - @pizza.Price € <a href="@Url.Action("Details", "pizza", new{ id= count++})">Visualizza</a> </li>
+                            <li class="py-2"><b>@pizza.Nome:</b> @pizza.Description -  <img width=20%  src="@pizza.Pic"> - @pizza.Price € 
+                            <a href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a> </li>
+                            <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a>
+                            <a href="@Url.Action("Delete","Pizza", new{ id = pizza.Id})"> Cancella</a>
                         }
                     </ul>
                 </div>
