@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+    
+    Pizza Margherita = new Pizza("Margherita", "Mozzarella e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780" , 8);
+    Pizza Napoli = new Pizza("Napoli", "Alici e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7);
+    Pizza Capricciosa = new Pizza("Capricciosa", "Uova e carciofi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 10);
+
+    Pizza QuattroFormaggi = new Pizza("Quattro Formaggi", "Mix formaggi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 6);
+    Pizza Funghi = new Pizza("Funghi", "Porcini e mozzarella", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7);
+    Pizza Bresaola = new Pizza("Bresaola", "Rucola e bresaola", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 12);
+
+
+    List<Pizza> pizzaList = new List<Pizza> { Margherita, Napoli, Capricciosa };
+}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    @*HEADER*@
+    <header class="container-fluid d-flex justify-content-between p-3">
+        <img src="css/img/pizza.png" alt="Immagine Pizza">
+        <span> <a>Utente</a> </span>
+    </header>
+    @*MAIN*@
+    <main class="container">
+        <div class="text-center">
+            <h1 class="display-4">Welcome to Pizza Hut</h1>
+            <div class="row">
+                <div class="col-6 text-start list-unstyled py-5">
+                    <h3>Pizze rosse:</h3>
+                    <ul>
+                        @foreach (var pizza in pizzaList)
+                        {
+                            <li><b>@pizza.Nome:</b> @pizza.Description - @pizza.Pic - @pizza.Price €</li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-6 text-start list-unstyled py-5">
+                    <h3>Pizze bianche:</h3>
+                    <ul>
+                        @foreach (var pizza in pizzaList)
+                        {
+                            <li><b>@pizza.Nome:</b> @pizza.Description - @pizza.Pic - @pizza.Price €</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    @*FOOTER*@
+    <footer class="container-fluid text-center">
+        <h5>Sponsored by Pizza Foods</h5>
+    </footer>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
