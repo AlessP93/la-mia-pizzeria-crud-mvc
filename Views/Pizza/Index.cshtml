@@ -19,22 +19,27 @@
         <div class="text-center">
             <h1 class="display-4">Welcome to Pizza Hut</h1>
             <div class="row">
-                <div class="col-6 text-start list-unstyled py-5">
+                <div class="col-5 text-start list-unstyled py-5">
                     <h3>Lista Pizze:</h3>
-                    <ul>
+                    <ul class="d-flex">
                         @{
                             int count = 0;
                         }
                         @foreach (var pizza in Model)
                         {
-                            <li class="py-2"><b>@pizza.Nome:</b> @pizza.Description -  <img width=20%  src="@pizza.Pic"> - @pizza.Price € 
-                            <a href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a> </li>
-                            <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a>
+                            <div class="col-7 d-flex">
+                                <li class="py-2 mr-4">
+                                    <b>@pizza.Nome:</b> @pizza.Description   <img width=20% height="40px" src="@pizza.Pic">  @pizza.Price €
 
-                            <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
-                                @Html.AntiForgeryToken()
-                                <a href="@Url.Action("Delete","Pizza", new{ id = pizza.Id})"> Cancella</a>
-                            </form>
+                                    <button class="btn "> <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a></button>
+                                    <button class="btn"> <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a> </button>
+                                <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
+                                        @Html.AntiForgeryToken()
+                                    <button type="submit">Cancella</button>
+                                </form>
+                                </li>  
+                            </div>
+                           
                         }
                     </ul>
                 </div>
