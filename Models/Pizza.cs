@@ -23,6 +23,10 @@ namespace la_mia_pizzeria.Models
         [Range(0, 15, ErrorMessage = "Il prezzo non è valido")]
         public float Price { get; set; }
 
+        // ? potrebbe essere null
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+
         //COSTRUTTORE VUOTO
         public Pizza()
         {

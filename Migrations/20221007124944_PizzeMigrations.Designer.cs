@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using la_mia_pizzeria;
 
@@ -11,9 +12,10 @@ using la_mia_pizzeria;
 namespace la_mia_pizzeria_static.Migrations
 {
     [DbContext(typeof(PizzeriaContext))]
-    partial class PizzeriaContextModelSnapshot : ModelSnapshot
+    [Migration("20221007124944_PizzeCategories")]
+    partial class PizzeMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,7 @@ namespace la_mia_pizzeria_static.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("la_mia_pizzeria.Models.Pizza", b =>
@@ -71,7 +73,7 @@ namespace la_mia_pizzeria_static.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Pizza", (string)null);
+                    b.ToTable("Pizza");
                 });
 
             modelBuilder.Entity("la_mia_pizzeria.Models.Pizza", b =>

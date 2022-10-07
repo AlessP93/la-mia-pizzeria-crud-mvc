@@ -1,8 +1,9 @@
-﻿@{
+﻿
     Layout = null;
 }
 
-@model List<Pizza>
+@using la_mia_pizzeria_static.Models
+
 
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -15,43 +16,105 @@
         <span> <a>Utente</a> </span>
     </header>
     @*MAIN*@
-    <main class="container">
-        <div class="text-center">
-            <h1 class="display-4">Welcome to Pizza Hut</h1>
+    <main>
+        <div class="container">
+            <h5>Lista Pizze:</h5>
             <div class="row">
-                <div class="col-5 text-start list-unstyled py-5">
-                    <h3>Lista Pizze:</h3>
-                    <ul class="d-flex">
-                        @{
-                            int count = 0;
-                        }
-                        @foreach (var pizza in Model)
+                <div class="col-6">
+                    <div>
+           @*             @if ( Model.Count() == 0)
                         {
-                            <div class="col-7 d-flex">
-                                <li class="py-2 mr-4">
-                                    <b>@pizza.Nome:</b> @pizza.Description   <img width=20% height="40px" src="@pizza.Pic">  @pizza.Price €
-
-                                    <button class="btn "> <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a></button>
-                                    <button class="btn"> <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a> </button>
-                                <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
-                                        @Html.AntiForgeryToken()
-                                    <button type="submit">Cancella</button>
-                                </form>
-                                </li>  
-                            </div>
-                           
+                            <h3 class="text-center">Non hai inserito nessuna pizza</h3>
                         }
-                    </ul>
+                        else{*@
+
+                        
+                        <ul class="d-flex">
+                            @foreach (Pizza pizza in Model)
+                            {
+                                <div>
+                                    <li class="">
+                                        <div class="text-center">
+                                            <div>
+                                                <img width=20% height="40px" src="@pizza.Pic">
+                                            </div>
+
+                                            <b>@pizza.Nome:</b>
+                                            <span>@pizza.Description</span>
+                                            <span>@pizza.Price €</span>
+                                        </div>
+                                        <span>@pizza.Category.Name</span>
+
+                                        <div>
+                                            <button class="btn "> <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a></button>
+                                            <button class="btn"> <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a> </button>
+                                            <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
+                                                    @Html.AntiForgeryToken()
+                                                <button type="submit">Cancella</button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </div>
+                                }              
+                            </ul>
+                       @* }
+*@
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <a href="@Url.Action("Create", "pizza")">Crea una pizza</a>
-        </div>
     </main>
+
     @*FOOTER*@
     <footer class="container-fluid text-center">
         <h5>Sponsored by Pizza Foods</h5>
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
+
+@*
+<div class="text-center">
+    <h1 class="display-4">Welcome to Pizza Hut</h1>
+    <div class="row">
+        <div class="col-5 text-start list-unstyled py-5">
+            <h5>Lista Pizze:</h5>
+            <ul class="d-flex list-style-none">
+                @{
+                    int count = 0;
+                }
+                @foreach (var pizza in Model)
+                {
+                    <div class="col-4 d-flex">
+                    <li class="py-2 mr-4">
+                        <div class="text-center">
+                            <div>
+                                <img width=20% height="40px" src="@pizza.Pic">
+                            </div>
+
+                            <b>@pizza.Nome:</b>
+                            <span>@pizza.Description</span>
+                            <span>@pizza.Price €</span>
+                        </div>
+
+                        <div>
+                            <button class="btn "> <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a></button>
+                            <button class="btn"> <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a> </button>
+                            <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                <button type="submit">Cancella</button>
+                            </form>
+                        </div>
+                    </li>
+            </div>
+
+                }
+        </ul>
+    </div>
+</div>
+        </div>
+<div class="text-center">
+    <a href="@Url.Action("Create", "pizza")">Crea una pizza</a>
+</div>
+    </main>*@
