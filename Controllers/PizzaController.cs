@@ -1,6 +1,6 @@
 ﻿
 using la_mia_pizzeria.Models;
-using la_mia_pizzeria_static.Models;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
@@ -17,17 +17,17 @@ namespace la_mia_pizzeria.Controllers
 		// GET: PizzaController
 		 public ActionResult Index()
 		{
-   //         List<Pizza> pizzaRosse = new List<Pizza>();
+   //         List<Pizzas> pizzaRosse = new List<Pizzas>();
 
-   //         pizzaRosse.Add(new Pizza("Margherita", "Mozzarella e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 8));
-   //         pizzaRosse.Add(new Pizza("Napoli", "Alici e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
-   //         pizzaRosse.Add(new Pizza("Capricciosa", "Uova e carciofi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 10));
+   //         pizzaRosse.Add(new Pizzas("Margherita", "Mozzarella e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 8));
+   //         pizzaRosse.Add(new Pizzas("Napoli", "Alici e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
+   //         pizzaRosse.Add(new Pizzas("Capricciosa", "Uova e carciofi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 10));
 
-   //         List<Pizza> pizzaBianche = new List<Pizza>();
+   //         List<Pizzas> pizzaBianche = new List<Pizzas>();
 
-   //         pizzaBianche.Add(new Pizza("Quattro Formaggi", "Mix formaggi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 6));
-   //         pizzaBianche.Add(new Pizza("Funghi", "Porcini e mozzarella", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
-   //         pizzaBianche.Add(new Pizza("Bresaola", "Rucola e bresaola", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 12));
+   //         pizzaBianche.Add(new Pizzas("Quattro Formaggi", "Mix formaggi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 6));
+   //         pizzaBianche.Add(new Pizzas("Funghi", "Porcini e mozzarella", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
+   //         pizzaBianche.Add(new Pizzas("Bresaola", "Rucola e bresaola", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 12));
 
    //         MenuPizze mp = new MenuPizze();
 
@@ -40,7 +40,7 @@ namespace la_mia_pizzeria.Controllers
 			{
              
                 //MI RECUPERO DAL CONTEXT LA LISTA DELLE PIZZE CHE INCLUDONO LE CATEGORY
-                List<Pizza> pizza = context.Pizza.Include("Category").ToList();
+                List<Pizza> pizza = context.Pizzas.Include("Category").ToList();
                 //E LI PASSO ALLA VISTA
                 return View("Index", pizza);
             }
@@ -54,7 +54,7 @@ namespace la_mia_pizzeria.Controllers
             {
                 //FACCIO RICHIESTA DELLE PIZZE ANDANDO A SELEZIONARE LA PIZZA SPECIFICA
                 //pizzaFound e' LINQ (questa e' la method syntax)
-                Pizza pizzaFound = context.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzaFound = context.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
                 //SE IL POST NON VIENE TROVATO
                 if (pizzaFound == null)
                 {
@@ -90,9 +90,9 @@ namespace la_mia_pizzeria.Controllers
                 return View("Create", formData);
             }
 
-			db.Pizza.Add(formData.Pizza);
+			db.Pizzas.Add(formData.Pizza);
 			db.SaveChanges();
-			//db.Pizza.Add(formData);
+			//db.Pizzas.Add(formData);
 			//db.SaveChanges();
 
            
@@ -104,7 +104,7 @@ namespace la_mia_pizzeria.Controllers
 		{
 			using (PizzeriaContext contesto = new PizzeriaContext())
 			{
-				Pizza pizzaEditata = contesto.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+				Pizza pizzaEditata = contesto.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
 				if (pizzaEditata == null)
 				{
@@ -119,7 +119,7 @@ namespace la_mia_pizzeria.Controllers
                 return View(pizzeCategories);
             }
 			//PizzeriaContext db = new PizzeriaContext();
-			//Pizza pizza = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+			//Pizzas pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
    //         return View(pizza);
             
@@ -140,14 +140,14 @@ namespace la_mia_pizzeria.Controllers
                 }
 
 				formData.Pizza.Id = id;
-				contesto.Pizza.Update(formData.Pizza);
+				contesto.Pizzas.Update(formData.Pizza);
 
 				contesto.SaveChanges();
 
                 return RedirectToAction("Index");
             }
             //PizzeriaContext db = new PizzeriaContext();
-            //         Pizza pizza = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+            //         Pizzas pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
             //         pizza.Nome = formData.Nome;
             //pizza.Description = formData.Description;
@@ -165,11 +165,11 @@ namespace la_mia_pizzeria.Controllers
 		{
             using (PizzeriaContext contesto = new PizzeriaContext())
             {
-                Pizza pizzaDaEliminare = contesto.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzaDaEliminare = contesto.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if (pizzaDaEliminare != null)
                 {
-                    contesto.Pizza.Remove(pizzaDaEliminare);
+                    contesto.Pizzas.Remove(pizzaDaEliminare);
 
                     contesto.SaveChanges();
 
@@ -181,7 +181,7 @@ namespace la_mia_pizzeria.Controllers
                 }
             }
             //         PizzeriaContext db = new PizzeriaContext();
-            //         Pizza pizza = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+            //         Pizzas pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
             //if (pizza == null)
             //{
@@ -189,7 +189,7 @@ namespace la_mia_pizzeria.Controllers
             //}
             //else
             //{
-            //	db.Pizza.Remove(pizza);
+            //	db.Pizzas.Remove(pizza);
             //	db.SaveChanges();
             //}
             //         return RedirectToAction("Index");

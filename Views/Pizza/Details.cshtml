@@ -7,9 +7,21 @@
 			<h3>@Model.Nome :</h3>
 			<h6>@Model.Description</h6>
 			<h4>@Model.Price €</h4>
+			<h4>@Model.Category.Name</h4>
+			 <p>
+                <strong>Ingredienti:</strong>
+                @foreach (Ingredient ing in Model.Ingredients)
+                {
+                    <div>
+                        <label>
+                            @ing.Name
+                        </label>
+                    </div>
+                }
+            </p>
 		</div>
 		<div class="col-6">
-			<img width=50% src="@Model.Pic">
+			<img width=70% src="@Model.Pic">
 		</div>
 	</div>
 	<div class="text-center">

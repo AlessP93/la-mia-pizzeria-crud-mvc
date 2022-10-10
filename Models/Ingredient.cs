@@ -2,17 +2,15 @@
 
 namespace la_mia_pizzeria.Models
 {
-    public class Category
+    public class Ingredient
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-
-        // inserisco la lista delle pizze
-        public List<Pizza>? Pizzas { get; set; }
-
-        public Category()
+        public List<Pizza>? Pizza { get; set; }
+        public Ingredient()
         {
-            
+
         }
+
     }
 }
