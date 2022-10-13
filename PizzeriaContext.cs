@@ -1,9 +1,14 @@
-﻿using la_mia_pizzeria.Models;
+﻿
+
+using la_mia_pizzeria;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace la_mia_pizzeria
+namespace la_mia_pizzeria.Models
 {
-    public class PizzeriaContext : DbContext
+    //tabelle
+    public class PizzeriaContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Pizza> Pizzas { get; set; }
 
@@ -13,8 +18,8 @@ namespace la_mia_pizzeria
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=db-pizzeria;Integrated Security=True;Pooling=False");
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=db-pizzeria_auth;Integrated Security=True;Pooling=False");
         }
-   
+
     }
 }

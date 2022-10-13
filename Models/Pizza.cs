@@ -9,19 +9,19 @@ namespace la_mia_pizzeria.Models
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         [StringLength(25, ErrorMessage = "Il nome non può essere maggiore di 25 caratteri")]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         [StringLength(100, ErrorMessage = "Il nome non può essere maggiore di 100 caratteri")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
-        public string Pic { get; set; }
+        public string? Pic { get; set; }
 
         [Required(ErrorMessage = "Il campo è obbligatorio")]
         [Range(0, 15, ErrorMessage = "Il prezzo non è valido")]
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
         // ? potrebbe essere null
         public int? CategoryId { get; set; }
