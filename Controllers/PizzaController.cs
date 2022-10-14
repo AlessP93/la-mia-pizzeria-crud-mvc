@@ -14,47 +14,37 @@ namespace la_mia_pizzeria.Controllers
 {
 	public class PizzaController : Controller
 	{
-		// GET: PizzaController
-		 public ActionResult Index()
+        //db nel genitore
+        PizzeriaContext db = new PizzeriaContext();
+
+
+        // GET: PizzaController -------------------- MOSTRA SOLO DATI
+        public ActionResult Index()
 		{
-   //         List<Pizzas> pizzaRosse = new List<Pizzas>();
-
-   //         pizzaRosse.Add(new Pizzas("Margherita", "Mozzarella e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 8));
-   //         pizzaRosse.Add(new Pizzas("Napoli", "Alici e pomodoro", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
-   //         pizzaRosse.Add(new Pizzas("Capricciosa", "Uova e carciofi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 10));
-
-   //         List<Pizzas> pizzaBianche = new List<Pizzas>();
-
-   //         pizzaBianche.Add(new Pizzas("Quattro Formaggi", "Mix formaggi", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 6));
-   //         pizzaBianche.Add(new Pizzas("Funghi", "Porcini e mozzarella", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 7));
-   //         pizzaBianche.Add(new Pizzas("Bresaola", "Rucola e bresaola", "https://www.melarossa.it/wp-content/uploads/2021/02/ricetta-pizza-margherita.jpg?x58780", 12));
-
-   //         MenuPizze mp = new MenuPizze();
-
-			//mp.Bianche = pizzaBianche;
-			//mp.Rosse = pizzaRosse;
-
-            //return View(mp);
-
+ 
             using (PizzeriaContext context = new PizzeriaContext())
 			{
              
                 //MI RECUPERO DAL CONTEXT LA LISTA DELLE PIZZE CHE INCLUDONO LE CATEGORY
-                List<Pizza> pizza = context.Pizzas.Include("Category").ToList();
+
+                //passami una lista di pizze 
+                List<Pizza> pizza = context.Pizzas.Include("Category").Include("Ingredients").ToList();
                 //E LI PASSO ALLA VISTA
                 return View("Index", pizza);
             }
 
         }
 
-		// GET: PizzaController/Details/5
-		public ActionResult Details(int id)
+        // GET: PizzaController/Details/5 ------------- MOSTRA SOLO DATI SINGOLI
+        public ActionResult Details(int id)//SHOW
         {
             using (PizzeriaContext context = new PizzeriaContext())
             {
                 //FACCIO RICHIESTA DELLE PIZZE ANDANDO A SELEZIONARE LA PIZZA SPECIFICA
                 //pizzaFound e' LINQ (questa e' la method syntax)
-                Pizza pizzaFound = context.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                Pizza pizzaFound = context.Pizzas.Include("Category").Include("Ingredients").Where(pizza => pizza.Id == id).FirstOrDefault();
+
                 //SE IL POST NON VIENE TROVATO
                 if (pizzaFound == null)
                 {
@@ -70,8 +60,10 @@ namespace la_mia_pizzeria.Controllers
 		// GET: PizzaController/Create
 		public IActionResult Create()
 		{
-			PizzeCategories pizzeCategories = new PizzeCategories();
+			PizzeCategories pizzeCategories = new PizzeCategories(); //accesso ai dati del modello pizzecategories
+
 			pizzeCategories.Categories = new PizzeriaContext().Categories.ToList();
+            pizzeCategories.Ingredients = new PizzeriaContext().Ingredients.ToList();
 
 			return View(pizzeCategories);
 		}
@@ -82,20 +74,19 @@ namespace la_mia_pizzeria.Controllers
 		                               //classe e parametro 
 		public ActionResult Create(PizzeCategories formData)
 		{
-            PizzeriaContext db = new PizzeriaContext();
-
+            //PizzeriaContext db = new PizzeriaContext();
             if (!ModelState.IsValid)
             {
-				formData.Categories = db.Categories.ToList();
+                formData.Categories = db.Categories.ToList();
+                formData.Ingredients = db.Ingredients.ToList();
                 return View("Create", formData);
             }
+                                        //new = nuova lista di ingredienti  ( con modello Ingredient )
+            formData.Pizza.Ingredients = new List<Ingredient>();
 
-			db.Pizzas.Add(formData.Pizza);
-			db.SaveChanges();
-			//db.Pizzas.Add(formData);
-			//db.SaveChanges();
+            db.Pizzas.Add(formData.Pizza);
+            db.SaveChanges();
 
-           
             return RedirectToAction("Index");
         }
 
@@ -104,7 +95,7 @@ namespace la_mia_pizzeria.Controllers
 		{
 			using (PizzeriaContext contesto = new PizzeriaContext())
 			{
-				Pizza pizzaEditata = contesto.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+				Pizza pizzaEditata = contesto.Pizzas.Include("Category").Include("Ingredients").Where(pizza => pizza.Id == id).FirstOrDefault();
 
 				if (pizzaEditata == null)
 				{
@@ -115,6 +106,7 @@ namespace la_mia_pizzeria.Controllers
 
 				pizzeCategories.Pizza = pizzaEditata;
 				pizzeCategories.Categories = contesto.Categories.ToList();
+                pizzeCategories.Ingredients = contesto.Ingredients.ToList();
 
                 return View(pizzeCategories);
             }
@@ -136,7 +128,8 @@ namespace la_mia_pizzeria.Controllers
                 if (!ModelState.IsValid)
                 {
 					formData.Categories = contesto.Categories.ToList();
-					return View("Edit", formData);
+                    formData.Ingredients = contesto.Ingredients.ToList();
+                    return View("Edit", formData);
                 }
 
 				formData.Pizza.Id = id;

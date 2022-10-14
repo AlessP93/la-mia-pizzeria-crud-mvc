@@ -56,7 +56,7 @@
 
                     <div>
                         <h4>Ingredienti</h4>
-                        <select multiple="multiple" asp-for="SelectedTags" size="8" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+                        <select multiple="multiple" asp-for="Ingredients" size="8" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
                             @foreach (Ingredient ing in Model.Ingredients)
                             {
                                 <option value="@ing.Id">@ing.Name</option>

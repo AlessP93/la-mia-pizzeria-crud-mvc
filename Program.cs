@@ -19,7 +19,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();
+app.UseAuthentication(); //auth
 
 app.UseAuthorization();
 

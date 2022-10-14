@@ -18,7 +18,7 @@
     @*MAIN*@
     <main>
         <div class="container py-5">
-            <button class="btn py-5"> <a href="@Url.Action("Create","Pizza")">Crea una nuova pizza</a> </button>
+            <a href="@Url.Action("Create","Pizza")">Crea una nuova pizza</a>
             <h5>Lista Pizze:</h5>
             <div class="row">
    
@@ -28,7 +28,7 @@
                             <li class="col-4">
                                 <div class="text-center justify-content-between">
                                     <div>
-                                        <img width=50% height="80px" src="@pizza.Pic">
+                                        <img style="width:50%; height:80px" src="@pizza.Pic">
                                     </div>
 
                                     <b>@pizza.Nome:</b>
@@ -38,10 +38,10 @@
                                 @*<span>@pizza.Category.Name</span>*@
 
                             <div class="text-center">
-                                    <button class="btn"> <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a></button>
-                                    <button class="btn"> <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})"> Modifica</a> </button>
-                               
-                                    <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
+                                <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a>
+                                <a href="@Url.Action("Edit","Pizza", new{ id = pizza.Id})">Modifica</a>
+
+                                <form asp-controller="Pizza" asp-action="Delete" asp-route-Id="@pizza.Id" method="post">
                                             @Html.AntiForgeryToken()
                                     <button class="btn btn-danger" type="submit">Cancella</button>
                                     </form>
