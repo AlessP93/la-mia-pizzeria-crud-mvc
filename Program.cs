@@ -27,5 +27,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Pizza}/{action=Index}/{id?}");
 
+/*app.MapRazorPages(); */// Auth
+
 app.Run();
 

@@ -35,7 +35,9 @@
                                     <span>@pizza.Description</span>
                                     <span>@pizza.Price €</span>
                                 </div>
-                                @*<span>@pizza.Category.Name</span>*@
+                                <table>
+                                <tr>@pizza.Category.Name</tr>
+                                </table>
 
                             <div class="text-center">
                                 <a color="white" style href="@Url.Action("Details", "pizza", new{ id = pizza.Id})">Visualizza</a>

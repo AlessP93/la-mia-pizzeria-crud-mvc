@@ -28,7 +28,7 @@ namespace la_mia_pizzeria.Controllers
                 //MI RECUPERO DAL CONTEXT LA LISTA DELLE PIZZE CHE INCLUDONO LE CATEGORY
 
                 //passami una lista di pizze 
-                List<Pizza> pizza = context.Pizzas.Include("Category").Include("Ingredients").ToList();
+                List<Pizza> pizza = context.Pizzas.Include("Category").ToList();
                 //E LI PASSO ALLA VISTA
                 return View("Index", pizza);
             }
